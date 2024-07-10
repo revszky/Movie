@@ -77,8 +77,6 @@ const Beranda = () => {
                 className="w-full h-auto mb-4 rounded"
               />
               <h2 className="text-xl font-semibold">{movie.title}</h2>
-              <p>{movie.overview}</p>
-              <p>{movie.release_date}</p>
               <div className="flex items-center">
                 <span className="text-yellow-500">
                   {"★".repeat(Math.round(movie.vote_average / 2))}
