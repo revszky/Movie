@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { fetchMovies } from "@/app/components/data/DataApi";
+import { fetchMovies, fetchMovieDetails } from "@/app/components/data/DataApi";
 
 interface Movie {
   release_date: string;
@@ -9,6 +9,14 @@ interface Movie {
   title: string;
   overview: string;
   poster_path: string;
+  vote_average: number;
+  cast: CastMember[];
+}
+
+interface CastMember {
+  name: string;
+  character: string;
+  profile_path: string;
 }
 
 const Beranda = () => {
@@ -20,8 +28,13 @@ const Beranda = () => {
     fetchMovies(mengaturMovies, mengaturRekomendasi);
   }, []);
 
-  const handleMovieClick = (movie: Movie) => {
-    setSelectedMovie(movie);
+  const handleMovieClick = async (movieId: number) => {
+    try {
+      const movieDetails = await fetchMovieDetails(movieId);
+      setSelectedMovie(movieDetails);
+    } catch (error) {
+      console.error("Error fetching movie details", error);
+    }
   };
 
   return (
@@ -39,6 +52,12 @@ const Beranda = () => {
               <h3 className="text-xl font-semibold">{rekomendasi.title}</h3>
               <p>{rekomendasi.overview}</p>
               <p>{rekomendasi.release_date}</p>
+              <div className="flex items-center">
+                <span className="text-yellow-500">
+                  {"★".repeat(Math.round(rekomendasi.vote_average / 2))}
+                </span>
+                <span className="ml-2">{rekomendasi.vote_average}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -50,7 +69,7 @@ const Beranda = () => {
             <div
               key={movie.id}
               className="border p-4 rounded cursor-pointer"
-              onClick={() => handleMovieClick(movie)}
+              onClick={() => handleMovieClick(movie.id)}
             >
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -60,6 +79,12 @@ const Beranda = () => {
               <h2 className="text-xl font-semibold">{movie.title}</h2>
               <p>{movie.overview}</p>
               <p>{movie.release_date}</p>
+              <div className="flex items-center">
+                <span className="text-yellow-500">
+                  {"★".repeat(Math.round(movie.vote_average / 2))}
+                </span>
+                <span className="ml-2">{movie.vote_average}</span>
+              </div>
             </div>
           ))}
         </div>
@@ -84,6 +109,30 @@ const Beranda = () => {
               <h3 className="text-xl font-semibold">{selectedMovie.title}</h3>
               <p>{selectedMovie.overview}</p>
               <p>{selectedMovie.release_date}</p>
+              <div className="flex items-center">
+                <span className="text-yellow-500">
+                  {"★".repeat(Math.round(selectedMovie.vote_average / 2))}
+                </span>
+                <span className="ml-2">{selectedMovie.vote_average}</span>
+              </div>
+              <h4 className="text-lg font-semibold mt-4">Pemeran:</h4>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {selectedMovie.cast.map((cast) => (
+                  <div key={cast.name} className="flex flex-col items-center">
+                    <img
+                      src={`https://image.tmdb.org/t/p/w200${cast.profile_path}`}
+                      alt={cast.name}
+                      className="w-full h-auto mb-2 rounded"
+                    />
+                    <p className="text-center">
+                      {cast.name} <br />
+                      <span className="text-gray-600 text-sm">
+                        sebagai {cast.character}
+                      </span>
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const pagr = () => {
+const DetailMovie = () => {
   return (
     <div>
       <div></div>
@@ -8,4 +8,4 @@ const pagr = () => {
   );
 };
 
-export default pagr;
+export default DetailMovie;
