@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { fetchMovies, fetchMovieDetails } from "@/app/components/data/DataApi";
+import { fetchMovies, fetchMovieDetails } from "@/app/data/DataApi";
 
 interface Movie {
   release_date: string;
