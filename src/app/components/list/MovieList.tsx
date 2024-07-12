@@ -17,8 +17,8 @@ const MoviesList: React.FC = () => {
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-      {movies.map((movie) => (
-        <MovieItem key={movie} movie={movie} />
+      {movies.map((movie, index) => (
+        <MovieItem key={index} movie={movie} />
       ))}
     </div>
   );
