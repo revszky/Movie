@@ -3,26 +3,38 @@
 import React, { useEffect, useState } from "react";
 import { getTvShowDetail } from "@/app/data/DataApi";
 import Link from "next/link";
+import { IconStarFilled } from "@tabler/icons-react";
 
 interface TvShowDetailProps {
   detailId: string;
 }
 
 const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
-  const [show, setShow] = useState<any>(null);
+  const [show, mengaturShow] = useState<any>(null);
 
   useEffect(() => {
-    const fetchShow = async () => {
-      const data = await getTvShowDetail(detailId);
-      setShow(data);
+    const mengambilData = async () => {
+      const dataShow = await getTvShowDetail(detailId);
+      mengaturShow(dataShow);
     };
 
-    fetchShow();
+    mengambilData();
   }, [detailId]);
 
   if (!show) {
     return <div>Loading...</div>;
   }
+
+  const memberikanStars = (rating: number) => {
+    const menghitungStars = Math.round(rating / 2);
+    const stars = [];
+    for (let i = 0; i < menghitungStars; i++) {
+      stars.push(
+        <IconStarFilled key={i} className="text-yellow-500" size={16} />
+      );
+    }
+    return stars;
+  };
 
   return (
     <div className="w-full flex flex-col items-center justify-center my-4">
@@ -38,6 +50,10 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
           src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
           alt={show.name}
         />
+        <div className="flex items-center mt-2">
+          {memberikanStars(show.vote_average)}
+          <span className="ml-2">{show.vote_average}</span>
+        </div>
         <p className="mt-4">{show.overview}</p>
       </div>
     </div>
