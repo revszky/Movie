@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { getMovieDetail } from "@/app/data/DataApi";
 import Link from "next/link";
-import { IconStarFilled } from "@tabler/icons-react";
+import { IconStar, IconStarFilled } from "@tabler/icons-react";
 
 interface MovieDetailProps {
   detailId: string;
@@ -52,6 +52,7 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
         />
         <div className="flex items-center mt-2">
           {memberikanStars(movie.vote_average)}
+          <IconStar size={16} className="text-yellow-500" />
           <span className="ml-2">{movie.vote_average}</span>
         </div>
         <p className="mt-4">{movie.overview}</p>

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { getTvShowDetail } from "@/app/data/DataApi";
 import Link from "next/link";
-import { IconStarFilled } from "@tabler/icons-react";
+import { IconStar, IconStarFilled } from "@tabler/icons-react";
 
 interface TvShowDetailProps {
   detailId: string;
@@ -52,6 +52,7 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
         />
         <div className="flex items-center mt-2">
           {memberikanStars(show.vote_average)}
+          <IconStar size={16} className="text-yellow-500" />
           <span className="ml-2">{show.vote_average}</span>
         </div>
         <p className="mt-4">{show.overview}</p>

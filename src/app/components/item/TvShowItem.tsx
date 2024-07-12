@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { IconStarFilled } from "@tabler/icons-react";
+import { IconStar, IconStarFilled } from "@tabler/icons-react";
 
 interface TvShowItemProps {
   show: {
@@ -33,6 +33,7 @@ const TvShowItem: React.FC<TvShowItemProps> = ({ show }) => {
         <h3 className="font-semibold">{show.name}</h3>
         <div className="flex items-center">
           {memberikanStars(show.rating)}
+          <IconStar size={16} className="text-yellow-500" />
           <span className="ml-2">{show.rating}</span>
         </div>
       </div>

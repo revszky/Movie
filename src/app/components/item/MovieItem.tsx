@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { IconStarFilled } from "@tabler/icons-react";
+import { IconStar, IconStarFilled } from "@tabler/icons-react";
 
 interface MovieItemProps {
   movie: {
@@ -33,6 +33,7 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
         <h3 className="font-semibold">{movie.title}</h3>
         <div className="flex items-center">
           {memberikanStars(movie.rating)}
+          <IconStar size={16} className="text-yellow-500" />
           <span className="ml-2">{movie.rating}</span>
         </div>
       </div>
