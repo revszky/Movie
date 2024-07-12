@@ -59,46 +59,79 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
         </Link>
       </div>
 
-      <div className="w-full md:px-14 lg:px-24 xl:px-36 2xl:px-80">
-        <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-        />
-        <div className="flex items-center mt-2">
-          {renderStars(movie.vote_average)}
-          <IconStar size={16} className="text-yellow-500" />
-          <span className="ml-2 text-white">{movie.vote_average}</span>
+      <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col md:flex-row items-center">
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            className="w-80 h-auto"
+          />
+
+          <div className="flex flex-col">
+            <div className="flex items-start px-10 py-6">
+              <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
+            </div>
+
+            <div className="flex items-start px-10">
+              <div className="max-w-xl text-white">
+                <p className="py-2 text-sm">{movie.overview}</p>
+              </div>
+            </div>
+
+            <div className="flex items-start px-10 py-4">
+              <div className="flex items-center">
+                {renderStars(movie.vote_average)}
+                <IconStar size={16} className="text-yellow-500" />
+                <span className="ml-2 text-white">{movie.vote_average}</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-14 p-8 text-white">
+              <div className="flex flex-col">
+                <div className="flex items-center gap-6 p-2">
+                  <p className="text-sm">Released</p>
+                  <p className="text-xs">{formatDate(movie.release_date)}</p>
+                </div>
+
+                <div className="flex items-center gap-6 p-2">
+                  <p className="text-sm">Director</p>
+                  <p className="text-xs p-1 bg-gray-800 rounded-md">
+                    {
+                      movie.credits.crew.find(
+                        (crew: any) => crew.job === "Director"
+                      )?.name
+                    }
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-6 p-2">
+                  <p className="text-sm">Production</p>
+                  <p className="text-xs">
+                    {movie.production_companies
+                      .map((company: any) => company.name)
+                      .join(", ")}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col">
+                <div className="flex items-center gap-6 p-2">
+                  <p className="text-sm">Runtime</p>
+                  <p className="text-xs">{formatRuntime(movie.runtime)}</p>
+                </div>
+
+                <div className="flex items-center gap-6 p-2">
+                  <p className="text-sm">Genres</p>
+                  <p className="text-xs max-w-[200px]">
+                    {movie.genres.map((genre: any) => genre.name).join(", ")}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <p className="mt-4 text-white">{movie.overview}</p>
 
         <DetailAktorMovie cast={movie.credits.cast} />
-
-        <div className="mt-4 text-white">
-          <p>
-            <strong>Released:</strong> {formatDate(movie.release_date)}
-          </p>
-          <p>
-            <strong>Director:</strong>{" "}
-            {
-              movie.credits.crew.find((crew: any) => crew.job === "Director")
-                ?.name
-            }
-          </p>
-          <p>
-            <strong>Production:</strong>{" "}
-            {movie.production_companies
-              .map((company: any) => company.name)
-              .join(", ")}
-          </p>
-          <p>
-            <strong>Runtime:</strong> {formatRuntime(movie.runtime)}
-          </p>
-          <p>
-            <strong>Genres:</strong>{" "}
-            {movie.genres.map((genre: any) => genre.name).join(", ")}
-          </p>
-        </div>
       </div>
     </div>
   );

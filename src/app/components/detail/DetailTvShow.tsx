@@ -45,40 +45,59 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
         </Link>
       </div>
 
-      <div className="w-full md:px-14 lg:px-24 xl:px-36 2xl:px-80">
-        <h1 className="text-3xl font-bold text-white">{show.name}</h1>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
-          alt={show.name}
-        />
-        <div className="flex items-center mt-2">
-          {renderStars(show.vote_average)}
-          <IconStar size={16} className="text-yellow-500" />
-          <span className="ml-2 text-white">{show.vote_average}</span>
+      <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col md:flex-row items-center">
+          <img
+            src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
+            alt={show.name}
+            className="w-80 h-auto"
+          />
+
+          <div className="flex flex-col">
+            <div className="flex items-start px-10 py-6">
+              <h1 className="text-3xl font-bold text-white">{show.name}</h1>
+            </div>
+
+            <div className="flex items-start px-10">
+              <div className="max-w-xl text-white">
+                <p className="py-2 text-sm">{show.overview}</p>
+              </div>
+            </div>
+
+            <div className="flex items-start px-10 py-4">
+              <div className="flex items-center">
+                {renderStars(show.vote_average)}
+                <IconStar size={16} className="text-yellow-500" />
+                <span className="ml-2 text-white">{show.vote_average}</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-start p-8 text-white">
+              <div className="flex items-center gap-6 p-2">
+                <p className="text-sm">Production</p>
+                <p className="text-xs max-w-[200px]">
+                  {show.production_companies
+                    .map((company: any) => company.name)
+                    .join(", ")}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-6 p-2">
+                <p className="text-sm">Status</p>
+                <p className="text-xs">{show.status}</p>
+              </div>
+
+              <div className="flex items-center gap-6 p-2">
+                <p className="text-sm">Genres</p>
+                <p className="text-xs">
+                  {show.genres.map((genre: any) => genre.name).join(", ")}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-        <p className="mt-4 text-white">{show.overview}</p>
 
         <DetailAktorTvShow cast={show.credits.cast} />
-
-        <div className="mt-4 text-white">
-          <p>
-            <strong>Creator:</strong>
-            {show.created_by.map((creator: any) => creator.name)}
-          </p>
-          <p>
-            <strong>Production:</strong>
-            {show.production_companies
-              .map((company: any) => company.name)
-              .join(", ")}
-          </p>
-          <p>
-            <strong>Status:</strong> {show.status}
-          </p>
-          <p>
-            <strong>Genres:</strong>{" "}
-            {show.genres.map((genre: any) => genre.name).join(", ")}
-          </p>
-        </div>
       </div>
     </div>
   );

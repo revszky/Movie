@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const apiKey = '9c97532fedbd204a33c87cd2ab3d293f';
+
 const tokenKey = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5Yzk3NTMyZmVkYmQyMDRhMzNjODdjZDJhYjNkMjkzZiIsIm5iZiI6MTcyMDI3NDg3MC43NzE4NDksInN1YiI6IjY2ODdiZWI2N2Q0NDMwOWM3ZDA4MTM2YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w18YSWyJpcRrhVzMaPS_0DSs8_NG2_v_nAMg3YVmGJE';
 
 const apiUrl = axios.create({
@@ -15,7 +16,7 @@ export const getMovieDetail = async (id: string) => {
     const response = await apiUrl.get(`/movie/${id}`, {
       params: {
         api_key: apiKey,
-        append_to_response: 'credits', // Menambahkan credits untuk mendapatkan data pemeran
+        append_to_response: 'credits',
       },
     });
     return response.data;
@@ -30,7 +31,7 @@ export const getTvShowDetail = async (id: string) => {
     const response = await apiUrl.get(`/tv/${id}`, {
       params: {
         api_key: apiKey,
-        append_to_response: 'credits', // Menambahkan credits untuk mendapatkan data pemeran
+        append_to_response: 'credits',
       },
     });
     return response.data;
