@@ -10,30 +10,45 @@ interface MovieDetailProps {
 }
 
 const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
-  const [movie, mengaturMovie] = useState<any>(null);
+  const [movie, setMovie] = useState<any>(null);
 
   useEffect(() => {
-    const mengambilData = async () => {
-      const dataMovie = await getMovieDetail(detailId);
-      mengaturMovie(dataMovie);
+    const fetchData = async () => {
+      const data = await getMovieDetail(detailId);
+      setMovie(data);
     };
 
-    mengambilData();
+    fetchData();
   }, [detailId]);
 
   if (!movie) {
     return <div>Loading...</div>;
   }
 
-  const memberikanStars = (rating: number) => {
-    const menghitungStars = Math.round(rating / 2);
+  const renderStars = (rating: number) => {
+    const numStars = Math.round(rating / 2);
     const stars = [];
-    for (let i = 0; i < menghitungStars; i++) {
+    for (let i = 0; i < numStars; i++) {
       stars.push(
         <IconStarFilled key={i} className="text-yellow-500" size={16} />
       );
     }
     return stars;
+  };
+
+  const formatRuntime = (runtime: number) => {
+    const hours = Math.floor(runtime / 60);
+    const minutes = runtime % 60;
+    return `${hours}h${minutes}min`;
+  };
+
+  // Format tanggal rilis
+  const formatDate = (date: string) => {
+    const d = new Date(date);
+    const day = d.getDate();
+    const month = d.getMonth() + 1;
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
   };
 
   return (
@@ -51,11 +66,51 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
           alt={movie.title}
         />
         <div className="flex items-center mt-2">
-          {memberikanStars(movie.vote_average)}
+          {renderStars(movie.vote_average)}
           <IconStar size={16} className="text-yellow-500" />
           <span className="ml-2">{movie.vote_average}</span>
         </div>
         <p className="mt-4">{movie.overview}</p>
+
+        <h2 className="text-2xl font-bold mt-4">Cast:</h2>
+        <div className="flex flex-wrap mt-2">
+          {movie.credits.cast.slice(0, 5).map((cast: any) => (
+            <div key={cast.id} className="flex items-center mr-4 mb-4">
+              <img
+                src={`https://image.tmdb.org/t/p/w200${cast.profile_path}`}
+                alt={cast.name}
+                className="rounded-full w-16 h-16 object-cover"
+              />
+              <span className="ml-2">{cast.name}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4">
+          <p>
+            <strong>Release Date:</strong> {formatDate(movie.release_date)}
+          </p>
+          <p>
+            <strong>Director:</strong>{" "}
+            {
+              movie.credits.crew.find((crew: any) => crew.job === "Director")
+                ?.name
+            }
+          </p>
+          <p>
+            <strong>Production Companies:</strong>{" "}
+            {movie.production_companies
+              .map((company: any) => company.name)
+              .join(", ")}
+          </p>
+          <p>
+            <strong>Runtime:</strong> {formatRuntime(movie.runtime)}
+          </p>
+          <p>
+            <strong>Genres:</strong>{" "}
+            {movie.genres.map((genre: any) => genre.name).join(", ")}
+          </p>
+        </div>
       </div>
     </div>
   );

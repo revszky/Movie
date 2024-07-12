@@ -10,30 +10,39 @@ interface TvShowDetailProps {
 }
 
 const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
-  const [show, mengaturShow] = useState<any>(null);
+  const [show, setShow] = useState<any>(null);
 
   useEffect(() => {
-    const mengambilData = async () => {
-      const dataShow = await getTvShowDetail(detailId);
-      mengaturShow(dataShow);
+    const fetchData = async () => {
+      const data = await getTvShowDetail(detailId);
+      setShow(data);
     };
 
-    mengambilData();
+    fetchData();
   }, [detailId]);
 
   if (!show) {
     return <div>Loading...</div>;
   }
 
-  const memberikanStars = (rating: number) => {
-    const menghitungStars = Math.round(rating / 2);
+  const renderStars = (rating: number) => {
+    const numStars = Math.round(rating / 2);
     const stars = [];
-    for (let i = 0; i < menghitungStars; i++) {
+    for (let i = 0; i < numStars; i++) {
       stars.push(
         <IconStarFilled key={i} className="text-yellow-500" size={16} />
       );
     }
     return stars;
+  };
+
+  // Format tanggal rilis
+  const formatDate = (date: string) => {
+    const d = new Date(date);
+    const day = d.getDate();
+    const month = d.getMonth() + 1;
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
   };
 
   return (
@@ -51,11 +60,45 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
           alt={show.name}
         />
         <div className="flex items-center mt-2">
-          {memberikanStars(show.vote_average)}
+          {renderStars(show.vote_average)}
           <IconStar size={16} className="text-yellow-500" />
           <span className="ml-2">{show.vote_average}</span>
         </div>
         <p className="mt-4">{show.overview}</p>
+
+        <h2 className="text-2xl font-bold mt-4">Cast:</h2>
+        <div className="flex flex-wrap mt-2">
+          {show.credits.cast.slice(0, 5).map((cast: any) => (
+            <div key={cast.id} className="flex items-center mr-4 mb-4">
+              <img
+                src={`https://image.tmdb.org/t/p/w200${cast.profile_path}`}
+                alt={cast.name}
+                className="rounded-full w-16 h-16 object-cover"
+              />
+              <span className="ml-2">{cast.name}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4">
+          <p>
+            <strong>Creator:</strong>{" "}
+            {show.created_by.map((creator: any) => creator.name).join(", ")}
+          </p>
+          <p>
+            <strong>Production Companies:</strong>{" "}
+            {show.production_companies
+              .map((company: any) => company.name)
+              .join(", ")}
+          </p>
+          <p>
+            <strong>Status:</strong> {show.status}
+          </p>
+          <p>
+            <strong>Genres:</strong>{" "}
+            {show.genres.map((genre: any) => genre.name).join(", ")}
+          </p>
+        </div>
       </div>
     </div>
   );
