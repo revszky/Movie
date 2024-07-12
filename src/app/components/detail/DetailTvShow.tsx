@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getTvShowDetail } from "@/app/data/DataApi";
 import Link from "next/link";
 import { IconStar, IconStarFilled } from "@tabler/icons-react";
+import DetailAktorTvShow from "./DetailAktorTvShow";
 
 interface TvShowDetailProps {
   detailId: string;
@@ -66,27 +67,15 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
         </div>
         <p className="mt-4">{show.overview}</p>
 
-        <h2 className="text-2xl font-bold mt-4">Cast:</h2>
-        <div className="flex flex-wrap mt-2">
-          {show.credits.cast.slice(0, 5).map((cast: any) => (
-            <div key={cast.id} className="flex items-center mr-4 mb-4">
-              <img
-                src={`https://image.tmdb.org/t/p/w200${cast.profile_path}`}
-                alt={cast.name}
-                className="rounded-full w-16 h-16 object-cover"
-              />
-              <span className="ml-2">{cast.name}</span>
-            </div>
-          ))}
-        </div>
+        <DetailAktorTvShow cast={show.credits.cast} />
 
         <div className="mt-4">
           <p>
-            <strong>Creator:</strong>{" "}
-            {show.created_by.map((creator: any) => creator.name).join(", ")}
+            <strong>Creator:</strong>
+            {show.created_by.map((creator: any) => creator.name)}
           </p>
           <p>
-            <strong>Production Companies:</strong>{" "}
+            <strong>Production:</strong>
             {show.production_companies
               .map((company: any) => company.name)
               .join(", ")}

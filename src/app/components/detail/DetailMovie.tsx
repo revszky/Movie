@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getMovieDetail } from "@/app/data/DataApi";
 import Link from "next/link";
 import { IconStar, IconStarFilled } from "@tabler/icons-react";
+import DetailAktorMovie from "./DetailAktorMovie";
 
 interface MovieDetailProps {
   detailId: string;
@@ -72,23 +73,11 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
         </div>
         <p className="mt-4">{movie.overview}</p>
 
-        <h2 className="text-2xl font-bold mt-4">Cast:</h2>
-        <div className="flex flex-wrap mt-2">
-          {movie.credits.cast.slice(0, 5).map((cast: any) => (
-            <div key={cast.id} className="flex items-center mr-4 mb-4">
-              <img
-                src={`https://image.tmdb.org/t/p/w200${cast.profile_path}`}
-                alt={cast.name}
-                className="rounded-full w-16 h-16 object-cover"
-              />
-              <span className="ml-2">{cast.name}</span>
-            </div>
-          ))}
-        </div>
+        <DetailAktorMovie cast={movie.credits.cast} />
 
         <div className="mt-4">
           <p>
-            <strong>Release Date:</strong> {formatDate(movie.release_date)}
+            <strong>Released:</strong> {formatDate(movie.release_date)}
           </p>
           <p>
             <strong>Director:</strong>{" "}
@@ -98,7 +87,7 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
             }
           </p>
           <p>
-            <strong>Production Companies:</strong>{" "}
+            <strong>Production:</strong>{" "}
             {movie.production_companies
               .map((company: any) => company.name)
               .join(", ")}
