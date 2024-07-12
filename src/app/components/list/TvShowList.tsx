@@ -16,10 +16,15 @@ const TvShowsList: React.FC = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-      {shows.map((show, index) => (
-        <TvShowItem key={index} show={show} />
-      ))}
+    <div className="px-10 py-4">
+      <div className="p-4">
+        <h1 className="text-2xl font-bold my-4 text-white">Popular TV Shows</h1>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {shows.map((show, index) => (
+          <TvShowItem key={index} show={show} />
+        ))}
+      </div>
     </div>
   );
 };

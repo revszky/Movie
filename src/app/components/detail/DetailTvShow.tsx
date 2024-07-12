@@ -23,7 +23,7 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
   }, [detailId]);
 
   if (!show) {
-    return <div>Loading...</div>;
+    return <div className="text-white">Loading...</div>;
   }
 
   const renderStars = (rating: number) => {
