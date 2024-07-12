@@ -47,7 +47,12 @@ export const moviePopuler = async () => {
         api_key: apiKey,
       },
     });
-    return respon.data.results;
+    return respon.data.results.map((movie: any) => ({
+      id: movie.id,
+      title: movie.title,
+      poster_path: movie.poster_path,
+      rating: movie.vote_average
+    }));
   } catch (error) {
     console.error('movie:', error);
     return [];
@@ -61,7 +66,12 @@ export const tvShows = async () => {
         api_key: apiKey,
       },
     });
-    return respon.data.results;
+    return respon.data.results.map((show: any) => ({
+      id: show.id,
+      name: show.name,
+      poster_path: show.poster_path,
+      rating: show.vote_average
+    }));
   } catch (error) {
     console.error('tv shows:', error);
     return [];

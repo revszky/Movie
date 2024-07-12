@@ -11,7 +11,7 @@
   "dependencies": {
     "@eslint/config-array": "^0.17.0",
     "@eslint/object-schema": "^2.1.4",
-    "@tabler/icons-react": "^3.9.0",
+    "@tabler/icons-react": "^3.10.0",
     "axios": "^1.7.2",
     "glob": "^10.4.2",
     "lru-cache": "^10.3.0",
