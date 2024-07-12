@@ -30,11 +30,11 @@ const TvShowItem: React.FC<TvShowItemProps> = ({ show }) => {
           src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
           alt={show.name}
         />
-        <h3 className="font-semibold">{show.name}</h3>
+        <h3 className="font-semibold text-white">{show.name}</h3>
         <div className="flex items-center">
           {memberikanStars(show.rating)}
           <IconStar size={16} className="text-yellow-500" />
-          <span className="ml-2">{show.rating}</span>
+          <span className="ml-2 text-white">{show.rating}</span>
         </div>
       </div>
     </Link>

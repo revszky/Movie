@@ -7,7 +7,7 @@ interface DetailAktorMovieProps {
 const DetailAktorMovie: React.FC<DetailAktorMovieProps> = ({ cast }) => {
   return (
     <div>
-      <h2 className="text-2xl font-bold mt-4">Cast:</h2>
+      <h2 className="text-2xl font-bold mt-4 text-white">Cast:</h2>
       <div className="flex flex-wrap mt-2">
         {cast.slice(0, 5).map((actor: any) => (
           <div key={actor.id} className="flex items-center mr-4 mb-4">
@@ -16,7 +16,7 @@ const DetailAktorMovie: React.FC<DetailAktorMovieProps> = ({ cast }) => {
               alt={actor.name}
               className="rounded-full w-16 h-16 object-cover"
             />
-            <span className="ml-2">{actor.name}</span>
+            <span className="ml-2 text-white">{actor.name}</span>
           </div>
         ))}
       </div>

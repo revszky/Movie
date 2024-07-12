@@ -37,15 +37,6 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
     return stars;
   };
 
-  // Format tanggal rilis
-  const formatDate = (date: string) => {
-    const d = new Date(date);
-    const day = d.getDate();
-    const month = d.getMonth() + 1;
-    const year = d.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
   return (
     <div className="w-full flex flex-col items-center justify-center my-4">
       <div className="my-6 self-start mx-4 xl:mx-6 2xl:mx-60">
@@ -55,7 +46,7 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
       </div>
 
       <div className="w-full md:px-14 lg:px-24 xl:px-36 2xl:px-80">
-        <h1 className="text-3xl font-bold">{show.name}</h1>
+        <h1 className="text-3xl font-bold text-white">{show.name}</h1>
         <img
           src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
           alt={show.name}
@@ -63,13 +54,13 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
         <div className="flex items-center mt-2">
           {renderStars(show.vote_average)}
           <IconStar size={16} className="text-yellow-500" />
-          <span className="ml-2">{show.vote_average}</span>
+          <span className="ml-2 text-white">{show.vote_average}</span>
         </div>
-        <p className="mt-4">{show.overview}</p>
+        <p className="mt-4 text-white">{show.overview}</p>
 
         <DetailAktorTvShow cast={show.credits.cast} />
 
-        <div className="mt-4">
+        <div className="mt-4 text-white">
           <p>
             <strong>Creator:</strong>
             {show.created_by.map((creator: any) => creator.name)}

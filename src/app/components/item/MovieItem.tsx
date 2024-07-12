@@ -30,11 +30,11 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
         />
-        <h3 className="font-semibold">{movie.title}</h3>
+        <h3 className="font-semibold text-white">{movie.title}</h3>
         <div className="flex items-center">
           {memberikanStars(movie.rating)}
           <IconStar size={16} className="text-yellow-500" />
-          <span className="ml-2">{movie.rating}</span>
+          <span className="ml-2 text-white">{movie.rating}</span>
         </div>
       </div>
     </Link>

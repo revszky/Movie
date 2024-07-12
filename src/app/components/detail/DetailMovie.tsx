@@ -23,7 +23,7 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
   }, [detailId]);
 
   if (!movie) {
-    return <div>Loading...</div>;
+    return <div className="text-white">Loading...</div>;
   }
 
   const renderStars = (rating: number) => {
@@ -43,7 +43,6 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
     return `${hours}h${minutes}min`;
   };
 
-  // Format tanggal rilis
   const formatDate = (date: string) => {
     const d = new Date(date);
     const day = d.getDate();
@@ -61,7 +60,7 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
       </div>
 
       <div className="w-full md:px-14 lg:px-24 xl:px-36 2xl:px-80">
-        <h1 className="text-3xl font-bold">{movie.title}</h1>
+        <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
@@ -69,13 +68,13 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
         <div className="flex items-center mt-2">
           {renderStars(movie.vote_average)}
           <IconStar size={16} className="text-yellow-500" />
-          <span className="ml-2">{movie.vote_average}</span>
+          <span className="ml-2 text-white">{movie.vote_average}</span>
         </div>
-        <p className="mt-4">{movie.overview}</p>
+        <p className="mt-4 text-white">{movie.overview}</p>
 
         <DetailAktorMovie cast={movie.credits.cast} />
 
-        <div className="mt-4">
+        <div className="mt-4 text-white">
           <p>
             <strong>Released:</strong> {formatDate(movie.release_date)}
           </p>
