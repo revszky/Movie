@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getMovieDetail } from "@/app/data/DataApi";
 import Link from "next/link";
 import { IconStar, IconStarFilled } from "@tabler/icons-react";
-import DetailAktor from "./DetailAktor";
+import AktorList from "../list/AktorList";
 
 interface MovieDetailProps {
   detailId: string;
@@ -130,7 +130,7 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
         </div>
       </div>
 
-      <DetailAktor cast={movie.credits.cast} />
+      <AktorList cast={movie.credits.cast} />
     </div>
   );
 };

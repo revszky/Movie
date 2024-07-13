@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getTvShowDetail } from "@/app/data/DataApi";
 import Link from "next/link";
 import { IconStar, IconStarFilled } from "@tabler/icons-react";
-import DetailAktor from "./DetailAktor";
+import AktorList from "../list/AktorList";
 
 interface TvShowDetailProps {
   detailId: string;
@@ -99,7 +99,7 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
           </div>
         </div>
 
-        <DetailAktor cast={show.credits.cast} />
+        <AktorList cast={show.credits.cast} />
       </div>
     </div>
   );
