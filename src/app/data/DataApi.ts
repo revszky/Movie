@@ -78,3 +78,17 @@ export const tvShows = async () => {
     return [];
   }
 };
+
+export const getActorDetail = async (id: string) => {
+  try {
+    const response = await apiUrl.get(`/person/${id}`, {
+      params: {
+        api_key: apiKey,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('getActorDetail:', error);
+    return null;
+  }
+};

@@ -1,13 +1,22 @@
+import DetailAktor from "@/app/components/detail/DetailAktor";
 import React from "react";
 
-const page = () => {
+interface DetailMovieProps {
+  params: {
+    detail: string;
+  };
+}
+
+const Page: React.FC<DetailMovieProps> = ({ params }) => {
   return (
-    <main>
-      <section>
-        <div></div>
+    <main className="bg-gray-950 min-h-screen">
+      <section className="py-4">
+        <div className="flex items-center justify-center">
+          <DetailAktor actorId={params.detail} />
+        </div>
       </section>
     </main>
   );
 };
 
-export default page;
+export default Page;

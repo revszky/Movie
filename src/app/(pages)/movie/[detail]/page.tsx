@@ -1,6 +1,5 @@
 import React from "react";
 import DetailMovie from "@/app/components/detail/DetailMovie";
-import Link from "next/link";
 
 interface DetailMovieProps {
   params: {
