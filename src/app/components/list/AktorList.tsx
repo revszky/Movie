@@ -4,7 +4,7 @@ interface DetailAktorProps {
   cast: any[];
 }
 
-const DetailAktor: React.FC<DetailAktorProps> = ({ cast }) => {
+const AktorList: React.FC<DetailAktorProps> = ({ cast }) => {
   return (
     <div className="flex flex-col items-center justify-center p-4">
       <div className="self-start p-6">
@@ -33,4 +33,4 @@ const DetailAktor: React.FC<DetailAktorProps> = ({ cast }) => {
   );
 };
 
-export default DetailAktor;
+export default AktorList;
