@@ -29,12 +29,16 @@ const TvShowItem: React.FC<TvShowItemProps> = ({ show }) => {
         <img
           src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
           alt={show.name}
+          className="hover:scale-105"
         />
-        <h3 className="font-semibold text-white">{show.name}</h3>
-        <div className="flex items-center">
-          {memberikanStars(show.rating)}
-          <IconStar size={16} className="text-yellow-500" />
-          <span className="ml-2 text-white">{show.rating}</span>
+
+        <div className="p-4">
+          <h3 className="font-semibold text-white">{show.name}</h3>
+          <div className="flex items-center">
+            {memberikanStars(show.rating)}
+            <IconStar size={16} className="text-yellow-500" />
+            <p className="ml-2 text-white">{show.rating}</p>
+          </div>
         </div>
       </div>
     </Link>

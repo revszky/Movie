@@ -29,12 +29,16 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
+          className="hover:scale-105"
         />
-        <h3 className="font-semibold text-white">{movie.title}</h3>
-        <div className="flex items-center">
-          {memberikanStars(movie.rating)}
-          <IconStar size={16} className="text-yellow-500" />
-          <span className="ml-2 text-white">{movie.rating}</span>
+
+        <div className="p-4">
+          <h3 className="font-semibold text-white">{movie.title}</h3>
+          <div className="flex items-center">
+            {memberikanStars(movie.rating)}
+            <IconStar size={16} className="text-yellow-500" />
+            <p className="ml-2 text-white">{movie.rating}</p>
+          </div>
         </div>
       </div>
     </Link>
