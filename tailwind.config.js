@@ -8,12 +8,13 @@ module.exports = {
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+
+  daisyui: {
+    themes: ["dark"],
+  },
+    
   theme: {
-    extend: {
-      daisyui: {
-        themes: ["light", "dark", "cupcake"],
-      },
-    },
+    extend: {},
   },
   plugins: [
     require('daisyui'),
