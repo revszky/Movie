@@ -70,7 +70,9 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
 
         <div className="flex flex-col items-center md:items-start justify-center p-0 md:p-4 text-white">
           <div className="py-6 px-4">
-            <h1 className="text-3xl font-bold">{movie.title}</h1>
+            <h1 className="text-3xl font-bold text-center md:text-left">
+              {movie.title}
+            </h1>
           </div>
 
           <div className="max-w-xl pb-6 px-4">
