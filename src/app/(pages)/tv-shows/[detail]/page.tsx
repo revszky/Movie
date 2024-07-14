@@ -9,7 +9,7 @@ interface DetailTvShowProps {
 
 const Page: React.FC<DetailTvShowProps> = ({ params }) => {
   return (
-    <main className="bg-gray-950 min-h-screen">
+    <main>
       <section className="py-4">
         <div className="flex items-center justify-center">
           <DetailTvShow detailId={params.detail} />
