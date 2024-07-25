@@ -73,6 +73,8 @@ export const tvShows = async () => {
       id: show.id,
       name: show.name,
       poster_path: show.poster_path,
+      backdrop_path: show.backdrop_path,
+      overview: show.overview,
       rating: show.vote_average,
     }));
   } catch (error) {

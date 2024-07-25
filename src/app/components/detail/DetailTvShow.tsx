@@ -26,6 +26,21 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
     return <div className="text-white">Loading...</div>;
   }
 
+  const backdropUrl = `https://image.tmdb.org/t/p/original${show.backdrop_path}`;
+
+  const truncateText = (text: string, wordLimit: number) => {
+    if (!text) {
+      return "";
+    }
+    const words = text.split(" ");
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(" ") + "...";
+    }
+    return text;
+  };
+
+  const mobileOverview = truncateText(show.overview, 18);
+
   const renderStars = (rating: number) => {
     const numStars = Math.round(rating / 2);
     const stars = [];
@@ -39,10 +54,41 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="my-6 self-start mx-4 xl:mx-6 2xl:mx-60">
-        <Link href="/" className="px-6 py-2 bg-black text-white font-bold">
-          BACK
-        </Link>
+      <div
+        className="relative flex items-center justify-center w-full h-80 lg:h-[460px] xl:h-[500px] p-4 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${backdropUrl})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black">
+          <div className="m-4 md:m-8">
+            <Link href="/" className="px-6 py-2 bg-black text-white font-bold">
+              BACK
+            </Link>
+          </div>
+        </div>
+
+        <div className="absolute left-0 z-10 text-white p-4 max-w-2xl flex flex-col items-center md:items-start justify-center">
+          <h2 className="text-2xl md:text-4xl font-semibold text-center md:text-left">
+            {show.name}
+          </h2>
+
+          <div className="py-2">
+            <p className="text-sm text-center md:text-left">
+              <span className="block md:hidden">{mobileOverview}</span>
+              <span className="hidden md:block">{show.overview}</span>
+            </p>
+          </div>
+
+          <div className="flex items-center">
+            {renderStars(show.vote_average)}
+            <IconStar size={16} className="text-yellow-500" />
+            <p className="ml-2 text-white">{show.vote_average}</p>
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-col items-center justify-center">
@@ -51,7 +97,7 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
             <img
               src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
               alt={show.name}
-              className="w-80 h-auto"
+              className="w-40 h-64 md:w-80 md:h-auto"
             />
           </div>
 
