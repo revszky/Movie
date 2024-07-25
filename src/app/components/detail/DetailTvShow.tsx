@@ -3,7 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { getTvShowDetail } from "@/app/data/DataApi";
 import Link from "next/link";
-import { IconStar, IconStarFilled } from "@tabler/icons-react";
+import {
+  IconStar,
+  IconStarFilled,
+  IconStarHalfFilled,
+} from "@tabler/icons-react";
 import AktorList from "../list/AktorList";
 
 interface TvShowDetailProps {
@@ -42,13 +46,34 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
   const mobileOverview = truncateText(show.overview, 18);
 
   const renderStars = (rating: number) => {
-    const numStars = Math.round(rating / 2);
+    const fullStars = Math.floor(rating / 2);
+    const halfStar = rating % 2 !== 0;
+    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
     const stars = [];
-    for (let i = 0; i < numStars; i++) {
+
+    for (let i = 0; i < fullStars; i++) {
       stars.push(
-        <IconStarFilled key={i} className="text-yellow-500" size={16} />
+        <IconStarFilled
+          key={`full-${i}`}
+          className="text-yellow-500"
+          size={16}
+        />
       );
     }
+
+    if (halfStar) {
+      stars.push(
+        <IconStarHalfFilled key="half" className="text-yellow-500" size={16} />
+      );
+    }
+
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(
+        <IconStar key={`empty-${i}`} className="text-yellow-500" size={16} />
+      );
+    }
+
     return stars;
   };
 
@@ -65,13 +90,16 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
       >
         <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black">
           <div className="m-4 md:m-8">
-            <Link href="/" className="px-6 py-2 bg-black text-white font-bold">
+            <Link
+              href="/tv-shows"
+              className="px-6 py-2 bg-black text-white font-bold"
+            >
               BACK
             </Link>
           </div>
         </div>
 
-        <div className="absolute left-0 z-10 text-white p-4 max-w-2xl flex flex-col items-center md:items-start justify-center">
+        <div className="absolute left-0 md:left-10 lg:left-24 z-10 text-white p-4 max-w-2xl flex flex-col items-center md:items-start justify-center">
           <h2 className="text-2xl md:text-4xl font-semibold text-center md:text-left">
             {show.name}
           </h2>
@@ -85,8 +113,7 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
 
           <div className="flex items-center">
             {renderStars(show.vote_average)}
-            <IconStar size={16} className="text-yellow-500" />
-            <p className="ml-2 text-white">{show.vote_average}</p>
+            <p className="ml-2 text-white">{show.vote_average.toFixed(1)}</p>
           </div>
         </div>
       </div>
@@ -134,14 +161,6 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
                 <p className="text-xs">
                   {show.genres.map((genre: any) => genre.name).join(", ")}
                 </p>
-              </div>
-
-              <div className="flex items-center gap-2 p-2">
-                <div className="flex items-center">
-                  {renderStars(show.vote_average)}
-                  <IconStar size={16} className="text-yellow-500" />
-                  <span className="ml-2 text-white">{show.vote_average}</span>
-                </div>
               </div>
             </div>
           </div>

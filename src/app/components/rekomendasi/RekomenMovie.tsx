@@ -3,19 +3,44 @@
 import React, { useEffect, useState } from "react";
 import { moviePopuler } from "@/app/data/DataApi";
 import Link from "next/link";
-import { IconStar, IconStarFilled } from "@tabler/icons-react";
+import {
+  IconStar,
+  IconStarFilled,
+  IconStarHalfFilled,
+} from "@tabler/icons-react";
 
 const RekomenMovie: React.FC = () => {
   const [rekomendasi, mengaturRekomendasi] = useState<any>(null);
 
   const memberikanStars = (rating: number) => {
-    const menghitungStars = Math.round(rating / 2);
+    const fullStars = Math.floor(rating / 2);
+    const halfStar = rating % 2 !== 0;
+    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
     const stars = [];
-    for (let i = 0; i < menghitungStars; i++) {
+
+    for (let i = 0; i < fullStars; i++) {
       stars.push(
-        <IconStarFilled key={i} className="text-yellow-500" size={16} />
+        <IconStarFilled
+          key={`full-${i}`}
+          className="text-yellow-500"
+          size={16}
+        />
       );
     }
+
+    if (halfStar) {
+      stars.push(
+        <IconStarHalfFilled key="half" className="text-yellow-500" size={16} />
+      );
+    }
+
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(
+        <IconStar key={`empty-${i}`} className="text-yellow-500" size={16} />
+      );
+    }
+
     return stars;
   };
 
@@ -57,7 +82,8 @@ const RekomenMovie: React.FC = () => {
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black"></div>
-        <div className="absolute left-0 z-10 text-white p-4 max-w-2xl flex flex-col items-center md:items-start justify-center">
+
+        <div className="absolute left-0 md:left-10 lg:left-24 z-10 text-white p-4 max-w-2xl flex flex-col items-center md:items-start justify-center">
           <h2 className="text-2xl md:text-4xl font-semibold text-center md:text-left">
             {rekomendasi.title}
           </h2>
@@ -71,8 +97,7 @@ const RekomenMovie: React.FC = () => {
 
           <div className="flex items-center">
             {memberikanStars(rekomendasi.rating)}
-            <IconStar size={16} className="text-yellow-500" />
-            <p className="ml-2 text-white">{rekomendasi.rating}</p>
+            <p className="ml-2 text-white">{rekomendasi.rating.toFixed(1)}</p>
           </div>
         </div>
       </div>

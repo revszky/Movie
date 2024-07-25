@@ -1,6 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import { IconStar, IconStarFilled } from "@tabler/icons-react";
+import {
+  IconStar,
+  IconStarFilled,
+  IconStarHalfFilled,
+} from "@tabler/icons-react";
 
 interface TvShowItemProps {
   show: {
@@ -13,13 +17,34 @@ interface TvShowItemProps {
 
 const TvShowItem: React.FC<TvShowItemProps> = ({ show }) => {
   const memberikanStars = (rating: number) => {
-    const menghitungStars = Math.round(rating / 2);
+    const fullStars = Math.floor(rating / 2);
+    const halfStar = rating % 2 !== 0;
+    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
     const stars = [];
-    for (let i = 0; i < menghitungStars; i++) {
+
+    for (let i = 0; i < fullStars; i++) {
       stars.push(
-        <IconStarFilled key={i} className="text-yellow-500" size={16} />
+        <IconStarFilled
+          key={`full-${i}`}
+          className="text-yellow-500"
+          size={16}
+        />
       );
     }
+
+    if (halfStar) {
+      stars.push(
+        <IconStarHalfFilled key="half" className="text-yellow-500" size={16} />
+      );
+    }
+
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(
+        <IconStar key={`empty-${i}`} className="text-yellow-500" size={16} />
+      );
+    }
+
     return stars;
   };
 
@@ -41,8 +66,7 @@ const TvShowItem: React.FC<TvShowItemProps> = ({ show }) => {
 
           <div className="flex items-center">
             {memberikanStars(show.rating)}
-            <IconStar size={16} className="text-yellow-500" />
-            <p className="ml-2 text-white">{show.rating}</p>
+            <p className="ml-2 text-white">{show.rating.toFixed(1)}</p>
           </div>
         </div>
       </div>

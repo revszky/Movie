@@ -3,7 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { getMovieDetail } from "@/app/data/DataApi";
 import Link from "next/link";
-import { IconStar, IconStarFilled } from "@tabler/icons-react";
+import {
+  IconStar,
+  IconStarFilled,
+  IconStarHalfFilled,
+} from "@tabler/icons-react";
 import AktorList from "../list/AktorList";
 
 interface MovieDetailProps {
@@ -27,13 +31,34 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
   }
 
   const renderStars = (rating: number) => {
-    const numStars = Math.round(rating / 2);
+    const fullStars = Math.floor(rating / 2);
+    const halfStar = rating % 2 !== 0;
+    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
     const stars = [];
-    for (let i = 0; i < numStars; i++) {
+
+    for (let i = 0; i < fullStars; i++) {
       stars.push(
-        <IconStarFilled key={i} className="text-yellow-500" size={16} />
+        <IconStarFilled
+          key={`full-${i}`}
+          className="text-yellow-500"
+          size={16}
+        />
       );
     }
+
+    if (halfStar) {
+      stars.push(
+        <IconStarHalfFilled key="half" className="text-yellow-500" size={16} />
+      );
+    }
+
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(
+        <IconStar key={`empty-${i}`} className="text-yellow-500" size={16} />
+      );
+    }
+
     return stars;
   };
 
@@ -82,7 +107,7 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
           </div>
         </div>
 
-        <div className="absolute left-0 z-10 text-white p-4 max-w-2xl flex flex-col items-center md:items-start justify-center">
+        <div className="absolute left-0 md:left-10 lg:left-24 z-10 text-white p-4 max-w-2xl flex flex-col items-center md:items-start justify-center">
           <h2 className="text-2xl md:text-4xl font-semibold text-center md:text-left">
             {movie.title}
           </h2>
@@ -96,8 +121,7 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
 
           <div className="flex items-center">
             {renderStars(movie.vote_average)}
-            <IconStar size={16} className="text-yellow-500" />
-            <p className="ml-2 text-white">{movie.vote_average}</p>
+            <p className="ml-2 text-white">{movie.vote_average.toFixed(1)}</p>
           </div>
         </div>
       </div>
@@ -164,14 +188,6 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
                   <p className="text-xs md:max-w-[200px]">
                     {movie.genres.map((genre: any) => genre.name).join(", ")}
                   </p>
-                </div>
-
-                <div className="flex items-center gap-2 p-2">
-                  <div className="flex items-center">
-                    {renderStars(movie.vote_average)}
-                    <IconStar size={16} className="text-yellow-500" />
-                  </div>
-                  <p className="text-sm">{movie.vote_average}</p>
                 </div>
               </div>
             </div>
