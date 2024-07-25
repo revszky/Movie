@@ -51,88 +51,135 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
     return `${day}/${month}/${year}`;
   };
 
+  const truncateText = (text: string, wordLimit: number) => {
+    const words = text.split(" ");
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(" ") + "...";
+    }
+    return text;
+  };
+
+  const mobileOverview = truncateText(movie.overview, 18);
+
+  const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
+
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="my-6 self-start mx-4 xl:mx-6 2xl:mx-60">
-        <Link href="/" className="px-6 py-2 bg-black text-white font-bold">
-          BACK
-        </Link>
-      </div>
-
-      <div className="flex flex-col md:flex-row items-center justify-center">
-        <div className="p-4">
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            alt={movie.title}
-            className="w-80 h-auto"
-          />
+      <div
+        className="relative flex items-center justify-center w-full h-80 lg:h-[460px] xl:h-[500px] p-4 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${backdropUrl})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black">
+          <div className="m-4 md:m-8">
+            <Link href="/" className="px-6 py-2 bg-black text-white font-bold">
+              BACK
+            </Link>
+          </div>
         </div>
 
-        <div className="flex flex-col items-center md:items-start justify-center p-0 md:p-4 text-white">
-          <div className="py-6 px-4">
-            <h1 className="text-3xl font-bold text-center md:text-left">
-              {movie.title}
-            </h1>
+        <div className="absolute left-0 z-10 text-white p-4 max-w-2xl flex flex-col items-center md:items-start justify-center">
+          <h2 className="text-2xl md:text-4xl font-semibold text-center md:text-left">
+            {movie.title}
+          </h2>
+
+          <div className="py-2">
+            <p className="text-sm text-center md:text-left">
+              <span className="block md:hidden">{mobileOverview}</span>
+              <span className="hidden md:block">{movie.overview}</span>
+            </p>
           </div>
 
-          <div className="max-w-xl pb-6 px-4">
-            <p className="text-sm text-center md:text-left">{movie.overview}</p>
+          <div className="flex items-center">
+            {renderStars(movie.vote_average)}
+            <IconStar size={16} className="text-yellow-500" />
+            <p className="ml-2 text-white">{movie.vote_average}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col md:flex-row items-center justify-center">
+          <div className="p-4">
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              alt={movie.title}
+              className="w-40 h-64 md:w-80 md:h-auto"
+            />
           </div>
 
-          <div className="flex items-start justify-center gap-4 p-4">
-            <div className="flex flex-col items-start justify-center">
-              <div className="flex items-center gap-2 p-2">
-                <p className="text-sm">Released</p>
-                <p className="text-xs">{formatDate(movie.release_date)}</p>
-              </div>
-
-              <div className="flex items-center gap-2 p-2">
-                <p className="text-sm">Director</p>
-                <p className="text-xs">
-                  {
-                    movie.credits.crew.find(
-                      (crew: any) => crew.job === "Director"
-                    )?.name
-                  }
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2 p-2">
-                <p className="text-sm">Production</p>
-                <p className="text-xs md:max-w-[200px]">
-                  {movie.production_companies
-                    .map((company: any) => company.name)
-                    .join(", ")}
-                </p>
-              </div>
+          <div className="flex flex-col items-center md:items-start justify-center p-0 md:p-4 text-white">
+            <div className="py-6 px-4">
+              <h1 className="text-3xl font-bold text-center md:text-left">
+                {movie.title}
+              </h1>
             </div>
 
-            <div className="flex flex-col items-start justify-center">
-              <div className="flex items-center gap-2 p-2">
-                <p className="text-sm">Runtime</p>
-                <p className="text-xs">{formatRuntime(movie.runtime)}</p>
-              </div>
+            <div className="max-w-xl pb-6 px-4">
+              <p className="text-sm text-center md:text-left">
+                {movie.overview}
+              </p>
+            </div>
 
-              <div className="flex items-center gap-2 p-2">
-                <p className="text-sm">Genres</p>
-                <p className="text-xs md:max-w-[200px]">
-                  {movie.genres.map((genre: any) => genre.name).join(", ")}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2 p-2">
-                <div className="flex items-center">
-                  {renderStars(movie.vote_average)}
-                  <IconStar size={16} className="text-yellow-500" />
+            <div className="flex items-start justify-center gap-4 p-4">
+              <div className="flex flex-col items-start justify-center">
+                <div className="flex items-center gap-2 p-2">
+                  <p className="text-sm">Released</p>
+                  <p className="text-xs">{formatDate(movie.release_date)}</p>
                 </div>
-                <p className="text-sm">{movie.vote_average}</p>
+
+                <div className="flex items-center gap-2 p-2">
+                  <p className="text-sm">Director</p>
+                  <p className="text-xs">
+                    {
+                      movie.credits.crew.find(
+                        (crew: any) => crew.job === "Director"
+                      )?.name
+                    }
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2 p-2">
+                  <p className="text-sm">Production</p>
+                  <p className="text-xs md:max-w-[200px]">
+                    {movie.production_companies
+                      .map((company: any) => company.name)
+                      .join(", ")}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-start justify-center">
+                <div className="flex items-center gap-2 p-2">
+                  <p className="text-sm">Runtime</p>
+                  <p className="text-xs">{formatRuntime(movie.runtime)}</p>
+                </div>
+
+                <div className="flex items-center gap-2 p-2">
+                  <p className="text-sm">Genres</p>
+                  <p className="text-xs md:max-w-[200px]">
+                    {movie.genres.map((genre: any) => genre.name).join(", ")}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2 p-2">
+                  <div className="flex items-center">
+                    {renderStars(movie.vote_average)}
+                    <IconStar size={16} className="text-yellow-500" />
+                  </div>
+                  <p className="text-sm">{movie.vote_average}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <AktorList cast={movie.credits.cast} />
+        <AktorList cast={movie.credits.cast} />
+      </div>
     </div>
   );
 };

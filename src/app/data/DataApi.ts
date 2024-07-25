@@ -53,6 +53,7 @@ export const moviePopuler = async () => {
       title: movie.title,
       poster_path: movie.poster_path,
       backdrop_path: movie.backdrop_path,
+      overview: movie.overview,
       rating: movie.vote_average,
     }));
   } catch (error) {

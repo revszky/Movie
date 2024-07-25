@@ -10,8 +10,8 @@ interface DetailMovieProps {
 const Page: React.FC<DetailMovieProps> = ({ params }) => {
   return (
     <main>
-      <section className="py-4">
-        <div className="flex items-center justify-center">
+      <section className="">
+        <div className="">
           <DetailMovie detailId={params.detail} />
         </div>
       </section>
