@@ -58,7 +58,7 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
           <div className="flex flex-col items-center md:items-start justify-center p-0 md:p-4 text-white">
             <div className="py-6 px-4">
               <h1 className="text-3xl font-bold text-center md:text-left">
-                {show.name}
+                Storyline
               </h1>
             </div>
 
@@ -100,9 +100,9 @@ const DetailTvShow: React.FC<TvShowDetailProps> = ({ detailId }) => {
             </div>
           </div>
         </div>
-
-        <AktorList cast={show.credits.cast} />
       </div>
+
+      <AktorList cast={show.credits.cast} />
     </div>
   );
 };

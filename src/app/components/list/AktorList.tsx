@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AktorItem from "../item/AktorItem";
 
 interface DetailAktorProps {
@@ -8,16 +8,28 @@ interface DetailAktorProps {
 }
 
 const AktorList: React.FC<DetailAktorProps> = ({ cast }) => {
+  const [judul, mengaturJudul] = useState("Cast:");
+
+  useEffect(() => {
+    if (cast.length > 0) {
+      mengaturJudul(`Cast:`);
+    }
+  }, [cast]);
+
   return (
-    <div className="flex flex-col items-center justify-center p-4">
-      <div className="self-start p-6">
-        <h2 className="text-2xl font-bold mt-4 text-white">Cast:</h2>
+    <div className="w-full">
+      <div className="py-2 px-4 self-start">
+        <h2 className="text-2xl font-bold mt-4 text-white">{judul}</h2>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
-        {cast.slice(0, 5).map((actor: any) => (
-          <AktorItem key={actor.id} actor={actor} />
-        ))}
+      <div className="w-full overflow-auto px-2">
+        <div className="carousel carousel-start">
+          {cast.map((actor: any, index) => (
+            <div key={index} className="carousel-item">
+              <AktorItem key={actor.id} actor={actor} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

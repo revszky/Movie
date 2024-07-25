@@ -10,8 +10,8 @@ interface DetailTvShowProps {
 const Page: React.FC<DetailTvShowProps> = ({ params }) => {
   return (
     <main>
-      <section className="py-4">
-        <div className="flex items-center justify-center">
+      <section className="">
+        <div className="">
           <DetailTvShow detailId={params.detail} />
         </div>
       </section>

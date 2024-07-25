@@ -115,7 +115,7 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
           <div className="flex flex-col items-center md:items-start justify-center p-0 md:p-4 text-white">
             <div className="py-6 px-4">
               <h1 className="text-3xl font-bold text-center md:text-left">
-                {movie.title}
+                Storyline
               </h1>
             </div>
 
@@ -177,9 +177,9 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
             </div>
           </div>
         </div>
-
-        <AktorList cast={movie.credits.cast} />
       </div>
+
+      <AktorList cast={movie.credits.cast} />
     </div>
   );
 };
