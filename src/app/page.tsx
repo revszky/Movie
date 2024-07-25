@@ -10,26 +10,15 @@ export default function Home() {
           <RekomenMovie />
         </div>
       </section>
-      <section className="py-4">
-        <div className="flex flex-col items-center justify-center">
-          <div className="py-2 px-4 self-start">
-            <h1 className="text-2xl font-bold mb-4 text-white">
-              Popular Movies
-            </h1>
-          </div>
 
+      <section className="py-4">
+        <div className="flex items-center justify-center">
           <MoviesList />
         </div>
       </section>
 
       <section className="py-4">
-        <div className="flex flex-col items-center justify-center">
-          <div className="py-2 px-4 self-start">
-            <h1 className="text-2xl font-bold my-4 text-white">
-              Popular TV Shows
-            </h1>
-          </div>
-
+        <div className="flex items-center justify-center">
           <TvShowsList />
         </div>
       </section>
