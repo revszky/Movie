@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const apiKey = '9c97532fedbd204a33c87cd2ab3d293f';
-
 const tokenKey = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5Yzk3NTMyZmVkYmQyMDRhMzNjODdjZDJhYjNkMjkzZiIsIm5iZiI6MTcyMDI3NDg3MC43NzE4NDksInN1YiI6IjY2ODdiZWI2N2Q0NDMwOWM3ZDA4MTM2YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w18YSWyJpcRrhVzMaPS_0DSs8_NG2_v_nAMg3YVmGJE';
 
 const apiUrl = axios.create({
@@ -114,6 +113,31 @@ export const topRatedMovies = async () => {
     }));
   } catch (error) {
     console.error('topRatedMovies:', error);
+    return [];
+  }
+};
+
+// Fungsi baru untuk mengambil acara TV dengan rating tertinggi
+export const topRatedTvShows = async () => {
+  try {
+    const response = await apiUrl.get('/tv/top_rated', {
+      params: {
+        api_key: apiKey,
+      },
+    });
+    
+    return response.data.results
+      .map((show: any) => ({
+        id: show.id,
+        name: show.name,
+        poster_path: show.poster_path,
+        backdrop_path: show.backdrop_path,
+        overview: show.overview,
+        rating: show.vote_average,
+      }))
+      .sort((a: any, b: any) => b.rating - a.rating);
+  } catch (error) {
+    console.error('topRatedTvShows:', error);
     return [];
   }
 };
