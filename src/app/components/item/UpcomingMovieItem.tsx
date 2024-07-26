@@ -1,25 +1,24 @@
 "use client";
 
+import React from "react";
+import Link from "next/link";
 import {
   IconStar,
   IconStarFilled,
   IconStarHalfFilled,
 } from "@tabler/icons-react";
-import Link from "next/link";
-import React from "react";
 
-interface TopTvShowItemProps {
-  topTvShow: {
+interface UpcomingMovieItemProps {
+  upMovie: {
     id: number;
-    name: string;
+    title: string;
     poster_path: string;
-    backdrop_path: string;
-    overview: string;
+    release_date: string;
     rating: number;
   };
 }
 
-const TopTvShowItem: React.FC<TopTvShowItemProps> = ({ topTvShow }) => {
+const UpcomingMovieItem: React.FC<UpcomingMovieItemProps> = ({ upMovie }) => {
   const memberikanStars = (rating: number) => {
     const fullStars = Math.floor(rating / 2);
     const halfStar = rating % 2 !== 0;
@@ -53,24 +52,24 @@ const TopTvShowItem: React.FC<TopTvShowItemProps> = ({ topTvShow }) => {
   };
 
   return (
-    <Link href={`/tv-shows/${topTvShow.id}`} className="p-2">
+    <Link href={`/movie/${upMovie.id}`} className="p-2">
       <div className="flex flex-col items-center justify-center">
         <div className="w-44 md:w-60 h-72 md:h-[360px]">
           <img
-            src={`https://image.tmdb.org/t/p/w500${topTvShow.poster_path}`}
-            alt={topTvShow.name}
+            src={`https://image.tmdb.org/t/p/w500${upMovie.poster_path}`}
+            alt={upMovie.title}
             className="hover:scale-105 duration-500 w-full h-full object-cover border-gray-500 border-4"
           />
         </div>
 
-        <div className="p-2 flex flex-col items-center justify-center">
-          <h3 className="font-semibold text-white max-w-[160px] text-center">
-            {topTvShow.name}
+        <div className="p-2 self-start">
+          <h3 className="font-semibold text-white max-w-[160px]">
+            {upMovie.title}
           </h3>
 
           <div className="flex items-center">
-            {memberikanStars(topTvShow.rating)}
-            <p className="ml-2 text-white">{topTvShow.rating.toFixed(1)}</p>
+            {memberikanStars(upMovie.rating)}
+            <p className="ml-2 text-white">{upMovie.rating.toFixed(1)}</p>
           </div>
         </div>
       </div>
@@ -78,4 +77,4 @@ const TopTvShowItem: React.FC<TopTvShowItemProps> = ({ topTvShow }) => {
   );
 };
 
-export default TopTvShowItem;
+export default UpcomingMovieItem;

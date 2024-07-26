@@ -117,7 +117,6 @@ export const topRatedMovies = async () => {
   }
 };
 
-// Fungsi baru untuk mengambil acara TV dengan rating tertinggi
 export const topRatedTvShows = async () => {
   try {
     const response = await apiUrl.get('/tv/top_rated', {
@@ -125,7 +124,6 @@ export const topRatedTvShows = async () => {
         api_key: apiKey,
       },
     });
-    
     return response.data.results
       .map((show: any) => ({
         id: show.id,
@@ -138,6 +136,48 @@ export const topRatedTvShows = async () => {
       .sort((a: any, b: any) => b.rating - a.rating);
   } catch (error) {
     console.error('topRatedTvShows:', error);
+    return [];
+  }
+};
+
+export const upcomingMovies = async () => {
+  try {
+    const response = await apiUrl.get('/movie/upcoming', {
+      params: {
+        api_key: apiKey,
+      },
+    });
+    return response.data.results.map((movie: any) => ({
+      id: movie.id,
+      title: movie.title,
+      poster_path: movie.poster_path,
+      backdrop_path: movie.backdrop_path,
+      overview: movie.overview,
+      rating: movie.vote_average,
+    }));
+  } catch (error) {
+    console.error('upcomingMovies:', error);
+    return [];
+  }
+};
+
+export const upcomingTvShows = async () => {
+  try {
+    const response = await apiUrl.get('/tv/on_the_air', {
+      params: {
+        api_key: apiKey,
+      },
+    });
+    return response.data.results.map((show: any) => ({
+      id: show.id,
+      name: show.name,
+      poster_path: show.poster_path,
+      backdrop_path: show.backdrop_path,
+      overview: show.overview,
+      rating: show.vote_average,
+    }));
+  } catch (error) {
+    console.error('upcomingTvShows:', error);
     return [];
   }
 };

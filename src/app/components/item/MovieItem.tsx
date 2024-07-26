@@ -61,8 +61,8 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
           />
         </div>
 
-        <div className="p-2 self-start">
-          <h3 className="font-semibold text-white max-w-[160px]">
+        <div className="p-2 flex flex-col items-center justify-center">
+          <h3 className="font-semibold text-white max-w-[160px] text-center">
             {movie.title}
           </h3>
 

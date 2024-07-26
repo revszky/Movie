@@ -28,7 +28,7 @@ const AktorItem: React.FC<AktorItemProps> = ({ actor }) => {
           )}
         </div>
 
-        <div className="p-4 text-white max-w-[140px] md:max-w-md">
+        <div className="p-4 text-white max-w-[140px] md:max-w-md text-center">
           <p className="text-center">{actor.name}</p>
         </div>
       </div>
