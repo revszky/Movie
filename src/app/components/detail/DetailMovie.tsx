@@ -99,16 +99,7 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black">
-          <div className="m-4 md:m-8">
-            <Link
-              href="/movie"
-              className="px-6 py-2 bg-black text-white font-bold"
-            >
-              BACK
-            </Link>
-          </div>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black"></div>
 
         <div className="absolute left-0 md:left-10 lg:left-24 z-10 text-white p-4 max-w-2xl flex flex-col items-center md:items-start justify-center">
           <h2 className="text-2xl md:text-4xl font-semibold text-center md:text-left">

@@ -26,12 +26,6 @@ const DetailAktor: React.FC<DetailAktorProps> = ({ actorId }) => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <div className="my-6 self-start mx-4 xl:mx-6 2xl:mx-60">
-        <Link href="/" className="px-6 py-2 bg-black text-white font-bold">
-          BACK
-        </Link>
-      </div>
-
       <div className="flex flex-col md:flex-row items-center justify-center">
         <div className="p-4">
           <img

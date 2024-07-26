@@ -84,7 +84,7 @@ const RekomenTvShows: React.FC = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black"></div>
+        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-gray-950"></div>
 
         <div className="absolute left-0 md:left-10 lg:left-24 z-10 text-white p-4 max-w-2xl flex flex-col items-center md:items-start justify-center">
           <h2 className="text-2xl md:text-4xl font-semibold text-center md:text-left">
