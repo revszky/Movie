@@ -12,7 +12,7 @@ const NotFound = () => {
 
         <div className="p-2">
           <p className="text-center text-sm lg:text-xl text-white">
-            Don't look for something that doesn't exist.
+            Don&apos;t look for something that doesn&apos;t exist.
           </p>
 
           <p className="text-center text-sm lg:text-xl text-white">
