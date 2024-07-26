@@ -101,7 +101,10 @@ const DetailMovie: React.FC<MovieDetailProps> = ({ detailId }) => {
       >
         <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black">
           <div className="m-4 md:m-8">
-            <Link href="/" className="px-6 py-2 bg-black text-white font-bold">
+            <Link
+              href="/movie"
+              className="px-6 py-2 bg-black text-white font-bold"
+            >
               BACK
             </Link>
           </div>

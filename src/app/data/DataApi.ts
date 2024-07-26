@@ -96,3 +96,24 @@ export const getActorDetail = async (id: string) => {
     return null;
   }
 };
+
+export const topRatedMovies = async () => {
+  try {
+    const response = await apiUrl.get('/movie/top_rated', {
+      params: {
+        api_key: apiKey,
+      },
+    });
+    return response.data.results.map((movie: any) => ({
+      id: movie.id,
+      title: movie.title,
+      poster_path: movie.poster_path,
+      backdrop_path: movie.backdrop_path,
+      overview: movie.overview,
+      rating: movie.vote_average,
+    }));
+  } catch (error) {
+    console.error('topRatedMovies:', error);
+    return [];
+  }
+};
