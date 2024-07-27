@@ -1,12 +1,28 @@
-import Search from "@/app/components/search/Search";
 import React from "react";
+import { Metadata } from "next";
+import AllSearch from "@/app/components/search/AllSearch";
 
-const page = () => {
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams?: { s?: string };
+}): Promise<Metadata> {
+  const query = searchParams?.s || "";
+  return {
+    title: query ? `${query} • KYMOVIES` : "Search • KYMOVIES",
+  };
+}
+
+const Page = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <Search />
-    </div>
+    <main>
+      <section className="pt-16 md:pt-20">
+        <div className="max-w-7xl mx-auto px-4 xl:px-0">
+          <AllSearch />
+        </div>
+      </section>
+    </main>
   );
 };
 
-export default page;
+export default Page;

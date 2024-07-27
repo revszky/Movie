@@ -3,6 +3,10 @@ import TvShowsList from "@/app/components/list/TvShowList";
 import RekomenTvShows from "@/app/components/rekomendasi/RekomenTvShows";
 import React from "react";
 
+export const metadata = {
+  title: "Tv Shows • KYMOVIES",
+};
+
 const page = () => {
   return (
     <main>

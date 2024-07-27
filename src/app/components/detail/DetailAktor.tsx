@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { getActorDetail } from "@/app/data/DataApi";
-import Link from "next/link";
 
 interface DetailAktorProps {
   actorId: string;

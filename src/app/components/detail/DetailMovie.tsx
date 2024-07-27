@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { getMovieDetail } from "@/app/data/DataApi";
-import Link from "next/link";
 import {
   IconStar,
   IconStarFilled,
