@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import {
@@ -8,17 +6,16 @@ import {
   IconStarHalfFilled,
 } from "@tabler/icons-react";
 
-interface UpcomingTvShowItemProps {
-  Upshow: {
+interface TvShowItemProps {
+  srcTvShow: {
     id: number;
     name: string;
     poster_path: string;
-    first_air_date: string;
     rating: number;
   };
 }
 
-const UpcomingTvShowItem: React.FC<UpcomingTvShowItemProps> = ({ Upshow }) => {
+const SrcTvShowItem: React.FC<TvShowItemProps> = ({ srcTvShow }) => {
   const memberikanStars = (rating: number) => {
     const fullStars = Math.floor(rating / 2);
     const halfStar = rating % 2 !== 0;
@@ -52,24 +49,24 @@ const UpcomingTvShowItem: React.FC<UpcomingTvShowItemProps> = ({ Upshow }) => {
   };
 
   return (
-    <Link href={`/tv-shows/${Upshow.id}`} className="p-2">
+    <Link href={`/tv-shows/${srcTvShow.id}`} className="p-2">
       <div className="flex flex-col items-center justify-center">
-        <div className="w-44 md:w-60 h-72 md:h-[360px]">
+        <div className="w-36 md:w-40 lg:w-52 xl:w-60 h-56 md:h-64 lg:h-80 xl:h-[360px]">
           <img
-            src={`https://image.tmdb.org/t/p/w500${Upshow.poster_path}`}
-            alt={Upshow.name}
+            src={`https://image.tmdb.org/t/p/w500${srcTvShow.poster_path}`}
+            alt={srcTvShow.name}
             className="hover:scale-105 duration-500 w-full h-full object-cover border-gray-500 border-4"
           />
         </div>
 
-        <div className="p-2 self-start">
-          <h3 className="font-semibold text-white max-w-[160px]">
-            {Upshow.name}
+        <div className="p-2 flex flex-col items-center justify-center">
+          <h3 className="font-semibold text-white max-w-[160px] text-center">
+            {srcTvShow.name}
           </h3>
 
           <div className="flex items-center">
-            {memberikanStars(Upshow.rating)}
-            <p className="ml-2 text-white">{Upshow.rating.toFixed(1)}</p>
+            {memberikanStars(srcTvShow.rating)}
+            <p className="ml-2 text-white">{srcTvShow.rating.toFixed(1)}</p>
           </div>
         </div>
       </div>
@@ -77,4 +74,4 @@ const UpcomingTvShowItem: React.FC<UpcomingTvShowItemProps> = ({ Upshow }) => {
   );
 };
 
-export default UpcomingTvShowItem;
+export default SrcTvShowItem;
